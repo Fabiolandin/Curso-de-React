@@ -1,6 +1,8 @@
+import Sidebar from "./components/Sidebar"
+
 function App(){
   return <div>
-    <h1 className=" mt-2 p-6">Task Manager</h1>
+    <Sidebar />
   </div>
 }
 
