@@ -1,0 +1,25 @@
+const TASKS = [
+        {
+            id: 1,
+            title: "Estudar FSC",
+            description: "Estudar para a prova FSC",
+            time: "morning",
+            status: "done",
+        },
+        {
+            id: 2,
+            title: "Ler sobre React",
+            description: "Ler para adquirir conhecimentos em React",
+            time: "afternoon",
+            status: "in_progress",
+        },
+        {
+            id: 3,
+            title: "Treinar",
+            description: "Treino de reabilitação do Joelho",
+            time: "moon",
+            status: "not_started",
+        }
+    ]
+
+    export default TASKS
