@@ -39,7 +39,7 @@ const Tasks = () => {
         setTasks(newTasks)
     }
 
-    return <div className="w-full py-16 px-8">
+    return <div className="w-full py-16 px-8 space-y-6">
         <div className="flex w-full justify-between">
             <div>
                 <span className="text-xs font-semibold text-[#00ADB5]">Minhas Tarefas</span>
