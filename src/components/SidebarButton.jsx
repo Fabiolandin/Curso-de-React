@@ -7,6 +7,10 @@ const SidebarButton = ({ children, variant }) =>{
         if (variant == 'selected'){
             return 'bg-[#E6F7F8] text-[#00ADB5]'
         }
+
+        if(variant == 'buylist'){
+            return 'text-[#808080]'
+        }
     }
 
     return(
