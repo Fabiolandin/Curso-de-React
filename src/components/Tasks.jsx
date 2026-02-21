@@ -15,6 +15,11 @@ const Tasks = () => {
     const afternoonTasks = tasks.filter((task => task.time == "afternoon"));
     const moonTasks = tasks.filter((task => task.time == "moon"));
 
+
+    const handleClose = () => {
+        setAddTaskDialogIsOpen(false)
+    }
+
     const handleCheckboxClick = (taskId) => {
         const newTasks = tasks.map((task) => {
             if (task.id != taskId) {
@@ -64,7 +69,7 @@ const Tasks = () => {
                     Nova Tarefa
                 </Button>
 
-                <AddTaskDialog isOpen={addTaskDialogIsOpen}/>
+                <AddTaskDialog isOpen={addTaskDialogIsOpen} handleClose={handleClose}/>
             </div>
         </div>
 
