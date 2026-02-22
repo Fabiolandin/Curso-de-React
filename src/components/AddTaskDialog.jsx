@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom"
 import { CSSTransition } from "react-transition-group"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import {v4} from 'uuid'
 
 import Input from "./Input"
@@ -14,7 +14,18 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
     const [description, setDescription] = useState('')
     const nodeRef = useRef()
 
+    useEffect(() => {
+        if(!isOpen){
+            setTitle('')
+            setTime('morning')
+            setDescription('')
+        }
+    },[isOpen])
+
     const handleSaveClick = () => {
+        if (!title.trim() || !time.trim() || !description.trim()){
+            return alert("Preencha todos os campos!")
+        }
         handleSubmit({
             id: v4(),
             title,
@@ -35,7 +46,7 @@ return (
             {createPortal(
                 <div ref={nodeRef} className="fixed bottom-0 backdrop-blur-sm top-0 flex h-screen w-screen left-0 items-center justify-center">
                     <div className="p-5 rounded-xl text-center bg-white shadow">
-                        <h2 className="text-[#35383 font-semibold text-xl">Nova Tarefa</h2>
+                        <h2 className="text-[#35383] font-semibold text-xl">Nova Tarefa</h2>
                         <p className="text-sm mt-1 mb-4 text-[#9A9C9F]">Insira as informações abaixo</p>
                         <div className="flex flex-col space-y-4 gap-3 w-[336px]">
                             <Input
