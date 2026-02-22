@@ -17,7 +17,7 @@ const TASKS = [
             id: 3,
             title: "Treinar",
             description: "Treino de reabilitação do Joelho",
-            time: "moon",
+            time: "evening",
             status: "not_started",
         }
     ]

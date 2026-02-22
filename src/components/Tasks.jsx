@@ -13,7 +13,7 @@ const Tasks = () => {
 
     const morningTasks = tasks.filter((task) => task.time == "morning");
     const afternoonTasks = tasks.filter((task => task.time == "afternoon"));
-    const moonTasks = tasks.filter((task => task.time == "moon"));
+    const moonTasks = tasks.filter((task => task.time == "evening"));
 
 
     const handleClose = () => {
@@ -45,6 +45,11 @@ const Tasks = () => {
         setTasks(newTasks)
     }
 
+    const handleAddTaskSubmit = (task) => {
+        setTasks([...tasks, task])
+        toast.success("Tarefa adicionada com sucesso!")
+    }
+
     const handleDeleteClick = (taskId) => {
         const newTasks = tasks.filter(task => task.id != taskId)
         setTasks(newTasks)
@@ -69,7 +74,10 @@ const Tasks = () => {
                     Nova Tarefa
                 </Button>
 
-                <AddTaskDialog isOpen={addTaskDialogIsOpen} handleClose={handleClose}/>
+                <AddTaskDialog isOpen={addTaskDialogIsOpen} 
+                handleClose={handleClose}
+                handleSubmit={handleAddTaskSubmit}
+                />
             </div>
         </div>
 
