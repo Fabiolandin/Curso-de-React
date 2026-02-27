@@ -98,7 +98,7 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
                                     error={descriptionError} />
 
                                 <div className="flex">
-                                    <Button size='large' className="w-full" variant="cancell" onClick={handleClose}>Cancelar</Button>
+                                    <Button size='large' className="w-full" color="cancell" onClick={handleClose}>Cancelar</Button>
                                     <Button
                                         size='large'
                                         className="w-full"
