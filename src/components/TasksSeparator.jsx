@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+
 
 const TaskSeparator = ({title, icon}) => {
     return(
@@ -9,9 +9,5 @@ const TaskSeparator = ({title, icon}) => {
     )
 }
 
-TaskSeparator.PropTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.node.isRequired
-}
 
 export default TaskSeparator

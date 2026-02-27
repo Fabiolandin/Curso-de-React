@@ -4,7 +4,7 @@ function Header(props) {
     return <header className="header">{props.children}</header>
 }
 
-Header.PropTypes = {
+Header.propTypes = {
     children: PropTypes.node.isRequired,
 }
 

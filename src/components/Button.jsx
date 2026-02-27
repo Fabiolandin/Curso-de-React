@@ -27,7 +27,7 @@ const Button = ({ children, color="primary", size="small", className, ...rest })
     </button>
 }
 
-Button.PropTypes = {
+Button.propTypes = {
     children: PropTypes.node.isRequired,
     color: PropTypes.oneOf(["primary", "secundary", "cancell"]),
     size: PropTypes.oneOf(['small', 'large']),

@@ -1,5 +1,5 @@
 import InputLabel from "./InputLabel"
-import PropTypes from "prop-types"
+
 
 const TimeSelect = (props) => {
     return (
@@ -19,8 +19,5 @@ const TimeSelect = (props) => {
     )
 }
 
-TimeSelect.PropTypes = {
-    errorMessage: PropTypes.string,
-}
 
 export default TimeSelect
