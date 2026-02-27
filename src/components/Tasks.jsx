@@ -1,15 +1,31 @@
 import Button from "./Button";
-import {TrashIcon, AddIcon, SunIcon, CloudIcon, MoonIcon} from '../assets/icons'
+import { TrashIcon, AddIcon, SunIcon, CloudIcon, MoonIcon } from '../assets/icons'
 import TaskSeparator from "./TasksSeparator";
-import { useState } from "react";
-import TASKS from '../constants/tasks'
+import { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 import { toast } from "sonner"
 import AddTaskDialog from "./AddTaskDialog";
 
 const Tasks = () => {
-    const [tasks, setTasks] = useState(TASKS)
+    const [tasks, setTasks] = useState([])
     const [addTaskDialogIsOpen, setAddTaskDialogIsOpen] = useState(false)
+
+    //Quando o componente for montado chama o useEffect
+    useEffect(() => {
+        const fetchTasks = async () => {
+            //Pegando os dados da API //
+            const response = await fetch("http://localhost:3000/tasks", {
+                method: "GET", 
+            })
+            const tasks = await response.json()
+            
+            // atualizando o state tasks
+            setTasks(tasks)
+        }
+
+        fetchTasks()
+
+    }, [])
 
     const morningTasks = tasks.filter((task) => task.time == "morning");
     const afternoonTasks = tasks.filter((task => task.time == "afternoon"));
@@ -74,9 +90,9 @@ const Tasks = () => {
                     Nova Tarefa
                 </Button>
 
-                <AddTaskDialog isOpen={addTaskDialogIsOpen} 
-                handleClose={handleClose}
-                handleSubmit={handleAddTaskSubmit}
+                <AddTaskDialog isOpen={addTaskDialogIsOpen}
+                    handleClose={handleClose}
+                    handleSubmit={handleAddTaskSubmit}
                 />
             </div>
         </div>
