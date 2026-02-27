@@ -6,7 +6,7 @@ const TimeSelect = (props) => {
             <InputLabel htmlFor="time">Horário</InputLabel>
             <select
                 id="time"
-                className="px-4 py-3 border-solid border border-[#ECECEC] rounded-lg placeholder:text-sm outline-[#00ADB5]"
+                className="px-4 py-3 border-solid border border-[#ECECEC] rounded-lg placeholder:text-sm outline-brand-primary"
                 {...props}
             >
 

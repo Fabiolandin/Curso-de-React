@@ -5,11 +5,11 @@ const TaskItem = ({ task, handleCheckboxClick, handleDeleteClick }) => {
 
     const getStatusClasses = () => {
         if (task.status === "done") {
-            return "bg-[#00ADB5] text-[#00ADB5]"
+            return "bg-brand-primary text-brand-primary"
         }
 
         if (task.status === "in_progress") {
-            return "bg-[#FFAA04] text-[#FFAA04]"
+            return "bg-brand-process text-brand-process"
         }
 
         if (task.status === "not_started") {
@@ -35,7 +35,7 @@ const TaskItem = ({ task, handleCheckboxClick, handleDeleteClick }) => {
 
             <div className='flex items-center gap-2'>
                 <Button variant='secundary' onClick={() => handleDeleteClick(task.id)}>
-                    <TrashIcon className="text-[#9A9C9F]"/>
+                    <TrashIcon className="text-brand-text-gray"/>
                 </Button>
                 <a href='#' className='hover:opacity-75 transition'>
                     <DetailsIcon />

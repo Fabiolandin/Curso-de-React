@@ -16,6 +16,7 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
 
     const nodeRef = useRef()
 
+    //Assim que os isOpen mudar, resetamos os inputs
     useEffect(() => {
         if (!isOpen) {
             setTitle('')
@@ -75,7 +76,7 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
                     <div ref={nodeRef} className="fixed bottom-0 backdrop-blur-sm top-0 flex h-screen w-screen left-0 items-center justify-center">
                         <div className="p-5 rounded-xl text-center bg-white shadow">
                             <h2 className="text-[#35383] font-semibold text-xl">Nova Tarefa</h2>
-                            <p className="text-sm mt-1 mb-4 text-[#9A9C9F]">Insira as informações abaixo</p>
+                            <p className="text-sm mt-1 mb-4 text-brand-text-gray">Insira as informações abaixo</p>
                             <div className="flex flex-col space-y-4 gap-3 w-[336px]">
                                 <Input
                                     id="title"

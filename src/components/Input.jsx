@@ -6,7 +6,7 @@ const Input = ({ label, error, ...rest }) => {
         <InputLabel htmlFor={rest.id}>{label}</InputLabel>
         <input 
         className="px-4 py-3 border-solid border border-[#ECECEC] rounded-lg 
-        placeholder:text-sm outline-[#00ADB5]"
+        placeholder:text-sm outline-brand-primary"
             {...rest}
         />
         {error && (

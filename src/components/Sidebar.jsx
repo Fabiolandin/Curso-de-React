@@ -5,10 +5,10 @@ const Sidebar = () => {
     return (
         <div className="h-screen bg-white w-64">
             <div className="px-8 py-6 space-y-4">
-                <h1 className="text-[#00ADB5] text-xl font-semibold"> Task Manager</h1>
+                <h1 className="text-brand-primary text-xl font-semibold"> Task Manager</h1>
                 <p>
                     Um simples {" "}
-                    <span className="text-[#00ADB5]">organizador de tarefas</span>.
+                    <span className="text-brand-primary">organizador de tarefas</span>.
                 </p>
 
             </div>

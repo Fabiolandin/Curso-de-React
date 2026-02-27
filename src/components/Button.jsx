@@ -2,15 +2,15 @@ const Button = ({ children, variant = "primary", size = 'small', className, ...r
 
     const getVariantClasses = () => {
         if (variant == 'primary') {
-            return 'bg-[#00ADB5] text-white'
+            return 'bg-brand-primary text-white'
         }
 
         if (variant == 'secundary') {
-            return 'bg-transparent text-[#818181]'
+            return 'bg-transparent text-brand-dark-gray'
         }
 
         if (variant == 'cancell') {
-            return 'bg-[#EEEEEE] text-[#35383E]'
+            return 'bg-brand-light-gray text-brand-dark-blue'
         }
     }
 
