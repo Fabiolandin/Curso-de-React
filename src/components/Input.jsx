@@ -1,4 +1,5 @@
 import InputLabel from "./InputLabel"
+import PropTypes from "prop-types"
 
 const Input = ({ label, error, ...rest }) => {
     return(
@@ -14,6 +15,11 @@ const Input = ({ label, error, ...rest }) => {
         )}
     </div>
 )
+}
+
+Input.PropTypes = {
+    label: PropTypes.string.isRequired,
+    error: PropTypes.string,
 }
 
 export default Input
