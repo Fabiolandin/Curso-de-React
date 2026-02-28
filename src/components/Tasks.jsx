@@ -67,15 +67,25 @@ const Tasks = () => {
             method: 'POST',
             body: JSON.stringify(task),
         })
-        if (!response.ok){
+        //Validação
+        if (!response.ok) {
             return toast.error("Erro ao adicionar a tarefa. Por favor, tente novamente!")
         }
+        //Salvando as taks
         setTasks([...tasks, task])
         toast.success("Tarefa adicionada com sucesso!")
     }
 
-    const handleDeleteClick = (taskId) => {
-        const newTasks = tasks.filter(task => task.id != taskId)
+    const handleDeleteClick = async (taskId) => {
+        //Chamando a API para deletar a tarefa
+        const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
+            method: 'DELETE',
+        })
+        if (!response.ok) {
+            return toast.error("Erro ao deletar a tarefa. Por favor, tente novamente!")
+        }
+        //Após chamar a API atualizar o state
+        const newTasks = tasks.filter((task) => task.id == taskId)
         setTasks(newTasks)
         toast.success("Tarefa removida com sucesso!")
     }
