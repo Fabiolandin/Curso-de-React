@@ -77,9 +77,6 @@ const Tasks = () => {
     }
 
     const onDeleteTaskSuccess = async (taskId) => {
-        setDeleTaskIsLoading(true)}
-
-        //Após chamar a API atualizar o state
         const newTasks = tasks.filter((task) => task.id == taskId)
         setTasks(newTasks)
         toast.success("Tarefa removida com sucesso!")
@@ -118,7 +115,7 @@ const Tasks = () => {
                         key={task.id}
                         task={task}
                         handleCheckboxClick={handleCheckboxClick}  
-                        onDeleteSuccess={onDeleteSuccess}
+                        onDeleteSuccess={onDeleteTaskSuccess}
                     />
                 ))}
             </div>
@@ -130,7 +127,7 @@ const Tasks = () => {
                         key={task.id}
                         task={task}
                         handleCheckboxClick={handleCheckboxClick}
-                        handleDeleteClick={handleDeleteClick}
+                        onDeleteSuccess={onDeleteTaskSuccess}
                     />
                 ))}
             </div>
@@ -142,7 +139,7 @@ const Tasks = () => {
                         key={task.id}
                         task={task}
                         handleCheckboxClick={handleCheckboxClick}
-                        handleDeleteClick={handleDeleteClick}
+                        onDeleteSuccess={onDeleteTaskSuccess}
                     />
                 ))}
             </div>
