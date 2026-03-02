@@ -62,7 +62,7 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
                         <TrashIcon className="text-brand-text-gray" />
                     )}
                 </Button>
-                <Link to={`/task/${task.id}`} >
+                <Link to={`/task/${task.id}`} />
                     <DetailsIcon />
             </div>
         </div>
