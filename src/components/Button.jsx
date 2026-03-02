@@ -16,7 +16,7 @@ const Button = ({ children, color="primary", size="small", className, ...rest })
                 large:"py-2 text-sm",
             },
         },
-        deafultVariants: {
+        defaultVariants: {
             color:"primary",
             size:"small",
         }

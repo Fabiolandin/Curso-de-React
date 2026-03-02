@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { CheckIcon, LoaderIcon, DetailsIcon, TrashIcon } from '../assets/icons'
 import Button from '../components/Button'
 import { toast } from 'sonner'
+import { Link } from 'react-router-dom'
 
 
 const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
-
     const [deleteIsLoading, setDeleteIsLoading] = useState(false)
 
     const handleDeleteClick = async () => {
@@ -62,9 +62,8 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
                         <TrashIcon className="text-brand-text-gray" />
                     )}
                 </Button>
-                <a href='#' className='hover:opacity-75 transition'>
+                <Link to={`/task/${task.id}`} >
                     <DetailsIcon />
-                </a>
             </div>
         </div>
     )
