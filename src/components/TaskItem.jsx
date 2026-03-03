@@ -55,15 +55,16 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
             </div>
 
             <div className='flex items-center gap-2'>
-                <Button color='secundary' onClick={handleDeleteClick} disable={deleteIsLoading}>
+                <Button color='secundary' onClick={handleDeleteClick} disabled={deleteIsLoading}>
                     {deleteIsLoading ? (
                         <LoaderIcon className=" h-4 w-4 animate-spin text-brand-gray" />
                     ) : (
                         <TrashIcon className="text-brand-text-gray" />
                     )}
                 </Button>
-                <Link to={`/task/${task.id}`} />
+                <Link to={`/task/${task.id}`} >
                     <DetailsIcon />
+                </Link>
             </div>
         </div>
     )

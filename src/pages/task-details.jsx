@@ -4,21 +4,23 @@ import { useState } from "react"
 import Sidebar from "../components/Sidebar"
 import { ArrowLeftIcon, ChevronRigthIcon, TrashIcon } from "../assets/icons"
 import Button from "../components/Button"
-import InputLabel from "../components/InputLabel"
 import Input from "../components/Input"
 import TimeSelect from "../components/TimeSelect"
+import { useNavigate } from "react-router-dom"
 
 const TaskDetailsPage = () => {
     const { taskId } = useParams()
     const [task, setTask] = useState()
-    const navigate = useState()
+
+    const navigate = useNavigate()
+
     const handleBackClick = () => {
-        navigate - 1
+        navigate(-1)
     }
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const response = await fetch('http://localhost:3000/task/${taskId}', {
+            const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
                 method: "GET"
             })
             const data = await response.json()
