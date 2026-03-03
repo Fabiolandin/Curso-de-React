@@ -9,6 +9,8 @@ import DetailsIcon from './details.svg?react'
 import HomeIcon from './home.svg?react'
 import BuyIcon from "./buy-svgrepo-com.svg?react"
 import TasksIcon from "./tasks.svg?react"
+import ChevronRigthIcon from "./chevron-right.svg?react"
+import ArrowLeftIcon from "./arrow-left.svg?react"
 
 export {
     AddIcon,
@@ -22,4 +24,6 @@ export {
     HomeIcon,
     BuyIcon,
     TasksIcon,
+    ChevronRigthIcon,
+    ArrowLeftIcon,
 }
