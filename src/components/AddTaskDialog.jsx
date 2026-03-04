@@ -7,8 +7,15 @@ import Button from "./Button"
 import "./AddTaskDialog.css"
 import TimeSelect from "./TimeSelect"
 
-const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
-    const [errors, setErrors] = useState([])
+const AddTaskDialog = ({
+    isOpen,
+    handleClose,
+    onSubmitSuccess,
+    onSubmitError,
+}) => {    
+
+    const [errors, setErrors] = useState()
+    const [isLoading, setLoading] = useState()
 
     const nodeRef = useRef()
     const titleRef = useRef()
@@ -17,8 +24,8 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
 
 
     const handleSaveClick = () => {
+        setIsLoading(true)
         const newErrors = []
-
         const title = titleRef.current.value
         const description = descriptionRef.current.value
         const time = timeRef.current.value
@@ -43,19 +50,23 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
             })
         }
         
-        setErrors(newErrors)
         
+        setErrors(newErrors)
         if (newErrors.length > 0) {
             return
         }
 
-        handleSubmit({
-            id: v4(),
-            title,
-            time,
-            description,
-            status: "not_started"
+        const task = {id: v4(), title, time, description, status: "not_started" }
+        const response = await fetch("http://localhost:3000/tasks", {
+            method: "POST",
+            body: JSON.stringify(task),
         })
+        if(!response.ok){
+            setIsLoading(false)
+            return onSubmitError()
+        }
+        onSubmitSuccess(task)
+        setIsLoading(false)
         handleClose()
     }
 
@@ -99,7 +110,9 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
                                     <Button
                                         size='large'
                                         className="w-full"
-                                        onClick={handleSaveClick}>
+                                        onClick={handleSaveClick}
+                                        {isLoading && <LoaderIcon className="animate-spin" />}
+                                        >
                                         Salvar
                                     </Button>
 

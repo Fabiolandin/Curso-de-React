@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
+import { ArrowLeftIcon, ChevronRigthIcon, LoaderIcon, TrashIcon } from "../assets/icons"
+
 import Sidebar from "../components/Sidebar"
-import { ArrowLeftIcon, ChevronRigthIcon, TrashIcon } from "../assets/icons"
 import Button from "../components/Button"
 import Input from "../components/Input"
 import TimeSelect from "../components/TimeSelect"
@@ -10,6 +11,8 @@ const TaskDetailsPage = () => {
     const { taskId } = useParams()
     const [task, setTask] = useState()
     const navigate = useNavigate()
+    const [saveIsLoading, setSaveIsLoading] = useState(false)
+    const [errors, setErrors] = useState(false)
 
     const titleRef = useRef()
     const descriptionRef = useRef()
@@ -30,6 +33,59 @@ const TaskDetailsPage = () => {
 
         fetchTasks()
     }, [taskId])
+
+    const handleSaveClick = () => {
+        setSaveIsLoading(true)
+        const newErrors = []
+        const title = titleRef.current.value
+        const description = descriptionRef.current.value
+        const time = timeRef.current.value
+
+        if (!title.trim()) {
+            newErrors.push({
+                inputName: 'title',
+                message: 'O título é obrigatório',
+            })
+        }
+
+        if (!time.trim()) {
+            newErrors.push({
+                inputName: 'time',
+                message: 'O horário é obrigatório',
+            })
+        }
+        if (!description.trim()) {
+            newErrors.push({
+                inputName: 'description',
+                message: 'A descrição é obrigatória',
+            })
+        }
+
+
+        setErrors(newErrors)
+        if (newErrors.length > 0) {
+            return setsaveIsLoading(false)
+        }
+
+        const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                title,
+                description,
+                time,
+            }),
+        })
+        if (!response.ok) {
+            toast.error("Ocorreu um erro ao salvar a tarefa.")
+            return setSaveIsLoading(false)
+        }
+        const newTask = await response.json()
+        setTask(newTask)
+        setSaveIsLoading(false)
+        toast.success("Tarefa salva com sucesso!")
+    }
+    const titleError = errors.find((error) => error.inputName == 'title')
+    const descriptionError = errors.find((error) => error.inputName == 'description')
 
     return (
         <div className="flex">
@@ -65,19 +121,42 @@ const TaskDetailsPage = () => {
                 {/*dados das tarefas*/}
                 <div className="bg-brand-white p-6 rounde-x1 space-y-6">
                     <div>
-                        <Input id="title" label="Titulo" defaultValue={task?.title} />
+                        <Input
+                            id="title"
+                            label="Titulo"
+                            defaultValue={task?.title}
+                            errorMessage={titleError?.message}
+                            ref={titleRef}
+                        />
                     </div>
                     <div>
-                        <TimeSelect defaultValue={task?.time}/>
+                        <TimeSelect
+                            defaultValue={task?.time}
+                            ref={timeRef}
+                        />
                     </div>
                     <div>
-                        <Input id="description" label="Descrição" defaultValue={task?.description} />
+                        <Input
+                            id="description"
+                            label="Descrição"
+                            defaultValue={task?.description}
+                            errorMessage={descriptionError?.message}
+                            ref={descriptionRef}
+                        />
                     </div>
 
                 </div>
                 <div className="w-full flex justify-end gap-3">
                     <Button size="large" color="secundary">Cancelar</Button>
-                    <Button size="large" color="primary">Salvar</Button>
+                    <Button
+                        size="large"
+                        color="primary"
+                        onClick={handleSaveClick}
+                        disabled={saveIsLoading}
+                    >
+                        {saveIsLoading && <LoaderIcon className="animate-spin" />}
+                        Salvar
+                    </Button>
 
                 </div>
             </div>
