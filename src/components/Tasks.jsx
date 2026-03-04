@@ -110,11 +110,16 @@ const Tasks = () => {
         <div className="rounded-xl p-6 bg-white">
             <div className="space-y-3 my-6">
                 <TaskSeparator title="Manhã" icon={<SunIcon />} />
+                {morningTasks.length == 0 && (
+                    <p className="text-sm text-brand-text-gray">
+                        Nenhuma tarefa cadastrada para o periodo da manhã
+                    </p>
+                )}
                 {morningTasks.map((task) => (
                     <TaskItem
                         key={task.id}
                         task={task}
-                        handleCheckboxClick={handleCheckboxClick}  
+                        handleCheckboxClick={handleCheckboxClick}
                         onDeleteSuccess={onDeleteTaskSuccess}
                     />
                 ))}
@@ -122,6 +127,11 @@ const Tasks = () => {
 
             <div className="space-y-3 my-6">
                 <TaskSeparator title="Tarde" icon={<CloudIcon />} />
+                {afternoonTasks.length == 0 && (
+                    <p className="text-sm text-brand-text-gray">
+                        Nenhuma tarefa cadastrada para o periodo da tarde
+                    </p>
+                )}
                 {afternoonTasks.map((task) => (
                     <TaskItem
                         key={task.id}
@@ -134,6 +144,11 @@ const Tasks = () => {
 
             <div className="space-y-3 my-6">
                 <TaskSeparator title="Noite" icon={<MoonIcon />} />
+                {moonTasks.length == 0 && (
+                    <p className="text-sm text-brand-text-gray">
+                        Nenhuma tarefa cadastrada para o periodo da noite
+                    </p>
+                )}
                 {moonTasks.map((task) => (
                     <TaskItem
                         key={task.id}
