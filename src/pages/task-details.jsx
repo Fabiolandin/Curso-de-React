@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { ArrowLeftIcon, ChevronRigthIcon, LoaderIcon, TrashIcon } from "../assets/icons"
+import { toast } from "sonner"
 
 import Sidebar from "../components/Sidebar"
 import Button from "../components/Button"
@@ -12,7 +13,7 @@ const TaskDetailsPage = () => {
     const [task, setTask] = useState()
     const navigate = useNavigate()
     const [saveIsLoading, setSaveIsLoading] = useState(false)
-    const [errors, setErrors] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const titleRef = useRef()
     const descriptionRef = useRef()
@@ -64,7 +65,7 @@ const TaskDetailsPage = () => {
 
         setErrors(newErrors)
         if (newErrors.length > 0) {
-            return setsaveIsLoading(false)
+            return setSaveIsLoading(false)
         }
 
         const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
@@ -86,10 +87,10 @@ const TaskDetailsPage = () => {
     }
 
     const handleDeleteClick = async () => {
-        const response = await fetch(`http://localhost:3000/tasks/${task.id}`,{
+        const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
             method: "DELETE",
         })
-        if(!response.ok) {
+        if (!response.ok) {
             return toast.error("Ocorreu um erro ao deletar a tarefa.")
         }
         toast.success("Tarefa deletada com sucesso!")
@@ -137,7 +138,7 @@ const TaskDetailsPage = () => {
                             id="title"
                             label="Titulo"
                             defaultValue={task?.title}
-                            errorMessage={titleError?.message}
+                            error={titleError}
                             ref={titleRef}
                         />
                     </div>
@@ -152,14 +153,20 @@ const TaskDetailsPage = () => {
                             id="description"
                             label="Descrição"
                             defaultValue={task?.description}
-                            errorMessage={descriptionError?.message}
+                            error={descriptionError}
                             ref={descriptionRef}
                         />
                     </div>
 
                 </div>
                 <div className="w-full flex justify-end gap-3">
-                    <Button size="large" color="secundary">Cancelar</Button>
+                    <Button
+                        size="large"
+                        color="secundary"
+                        onClick={handleBackClick}
+                    >
+                        Cancelar
+                    </Button>
                     <Button
                         size="large"
                         color="primary"

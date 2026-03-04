@@ -6,16 +6,17 @@ import Input from "./Input"
 import Button from "./Button"
 import "./AddTaskDialog.css"
 import TimeSelect from "./TimeSelect"
+import { LoaderIcon } from "../assets/icons"
 
 const AddTaskDialog = ({
     isOpen,
     handleClose,
     onSubmitSuccess,
     onSubmitError,
-}) => {    
+}) => {
 
-    const [errors, setErrors] = useState()
-    const [isLoading, setLoading] = useState()
+    const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const nodeRef = useRef()
     const titleRef = useRef()
@@ -23,7 +24,7 @@ const AddTaskDialog = ({
     const timeRef = useRef()
 
 
-    const handleSaveClick = () => {
+    const handleSaveClick = async () => {
         setIsLoading(true)
         const newErrors = []
         const title = titleRef.current.value
@@ -49,25 +50,30 @@ const AddTaskDialog = ({
                 message: 'A descrição é obrigatória',
             })
         }
-        
-        
+
+
         setErrors(newErrors)
         if (newErrors.length > 0) {
+            setIsLoading(false)
             return
         }
 
-        const task = {id: v4(), title, time, description, status: "not_started" }
+        const task = { id: v4(), title, time, description, status: "not_started" }
         const response = await fetch("http://localhost:3000/tasks", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(task),
         })
-        if(!response.ok){
+        if (!response.ok) {
             setIsLoading(false)
             return onSubmitError()
         }
-        onSubmitSuccess(task)
         setIsLoading(false)
         handleClose()
+        
+        onSubmitSuccess(task)
     }
 
     const titleError = errors.find((error) => error.inputName == 'title')
@@ -88,34 +94,40 @@ const AddTaskDialog = ({
                                 <Input
                                     id="title"
                                     label="Titulo"
-                                    placeholder="Insira o titulo da tarefa" 
-                                    errorMessage={titleError?.message}
+                                    placeholder="Insira o titulo da tarefa"
+                                    error={titleError}
                                     ref={titleRef}
-                                    />
-
-                                <TimeSelect 
-                                ref={timeRef}
                                 />
-                            
+
+                                <TimeSelect
+                                    ref={timeRef}
+                                />
+
                                 <Input
                                     id="description"
                                     label="Descrição"
                                     placeholder="Descrição"
-                                    error={descriptionError?.message}
+                                    error={descriptionError}
                                     ref={descriptionRef}
-                                    />
+                                />
 
                                 <div className="flex">
-                                    <Button size='large' className="w-full" color="cancell" onClick={handleClose}>Cancelar</Button>
+                                    <Button
+                                        size='large'
+                                        className="w-full"
+                                        color="cancell"
+                                        onClick={handleClose}
+                                    >
+                                        Cancelar
+                                    </Button>
                                     <Button
                                         size='large'
                                         className="w-full"
                                         onClick={handleSaveClick}
-                                        {isLoading && <LoaderIcon className="animate-spin" />}
-                                        >
+                                    >
+                                        {isLoading && <LoaderIcon className="animate-spin mr-2" />}
                                         Salvar
                                     </Button>
-
                                 </div>
                             </div>
                         </div>
