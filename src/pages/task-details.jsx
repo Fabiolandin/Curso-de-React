@@ -1,18 +1,19 @@
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import Sidebar from "../components/Sidebar"
 import { ArrowLeftIcon, ChevronRigthIcon, TrashIcon } from "../assets/icons"
 import Button from "../components/Button"
 import Input from "../components/Input"
 import TimeSelect from "../components/TimeSelect"
-import { useNavigate } from "react-router-dom"
 
 const TaskDetailsPage = () => {
     const { taskId } = useParams()
     const [task, setTask] = useState()
-
     const navigate = useNavigate()
+
+    const titleRef = useRef()
+    const descriptionRef = useRef()
+    const timeRef = useRef()
 
     const handleBackClick = () => {
         navigate(-1)
@@ -45,7 +46,7 @@ const TaskDetailsPage = () => {
                         <div className="flex justify-between w-full text-xs">
                             <div>
                                 <div className="flex items-center gap-1">
-                                    <span className="text-brand-text-gray cursor-pointer" onClick={handleBackClick}>Minhas tarefas</span>
+                                    <Link className="text-brand-text-gray cursor-pointer" to="/">Minhas tarefas</Link>
                                     <ChevronRigthIcon className="text-brand-text-gray" />
                                     <span className="font-semiboldtext-brand-primary">
                                         {task?.title}
@@ -64,13 +65,13 @@ const TaskDetailsPage = () => {
                 {/*dados das tarefas*/}
                 <div className="bg-brand-white p-6 rounde-x1 space-y-6">
                     <div>
-                        <Input id="title" label="Titulo" value={task?.title} />
+                        <Input id="title" label="Titulo" defaultValue={task?.title} />
                     </div>
                     <div>
-                        <TimeSelect value={task?.time}/>
+                        <TimeSelect defaultValue={task?.time}/>
                     </div>
                     <div>
-                        <Input id="description" label="Descrição" value={task?.description} />
+                        <Input id="description" label="Descrição" defaultValue={task?.description} />
                     </div>
 
                 </div>

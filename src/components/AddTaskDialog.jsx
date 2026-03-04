@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom"
 import { CSSTransition } from "react-transition-group"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { v4 } from 'uuid'
 import Input from "./Input"
 import Button from "./Button"
@@ -8,24 +8,20 @@ import "./AddTaskDialog.css"
 import TimeSelect from "./TimeSelect"
 
 const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
-    const [title, setTitle] = useState('')
-    const [time, setTime] = useState('morning')
-    const [description, setDescription] = useState('')
     const [errors, setErrors] = useState([])
 
     const nodeRef = useRef()
+    const titleRef = useRef()
+    const descriptionRef = useRef()
+    const timeRef = useRef()
 
-    //Assim que os isOpen mudar, resetamos os inputs
-    useEffect(() => {
-        if (!isOpen) {
-            setTitle('')
-            setTime('morning')
-            setDescription('')
-        }
-    }, [isOpen])
 
     const handleSaveClick = () => {
         const newErrors = []
+
+        const title = titleRef.current.value
+        const description = descriptionRef.current.value
+        const time = timeRef.current.value
 
         if (!title.trim()) {
             newErrors.push({
@@ -76,25 +72,27 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
                         <div className="p-5 rounded-xl text-center bg-white shadow">
                             <h2 className="text-[#35383] font-semibold text-xl">Nova Tarefa</h2>
                             <p className="text-sm mt-1 mb-4 text-brand-text-gray">Insira as informações abaixo</p>
+
                             <div className="flex flex-col space-y-4 gap-3 w-[336px]">
                                 <Input
                                     id="title"
                                     label="Titulo"
-                                    value={title}
-                                    onChange={event => setTitle(event.target.value)}
                                     placeholder="Insira o titulo da tarefa" 
-                                    error={titleError}
+                                    errorMessage={titleError?.message}
+                                    ref={titleRef}
                                     />
 
-                                <TimeSelect value={time} onChange={event => setTime(event.target.value)} />
+                                <TimeSelect 
+                                ref={timeRef}
+                                />
                             
                                 <Input
                                     id="description"
                                     label="Descrição"
-                                    value={description}
-                                    onChange={event => setDescription(event.target.value)}
                                     placeholder="Descrição"
-                                    error={descriptionError} />
+                                    error={descriptionError?.message}
+                                    ref={descriptionRef}
+                                    />
 
                                 <div className="flex">
                                     <Button size='large' className="w-full" color="cancell" onClick={handleClose}>Cancelar</Button>
