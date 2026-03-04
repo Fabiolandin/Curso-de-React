@@ -77,7 +77,7 @@ const Tasks = () => {
     }
 
     const onDeleteTaskSuccess = async (taskId) => {
-        const newTasks = tasks.filter((task) => task.id == taskId)
+        const newTasks = tasks.filter((task) => task.id != taskId)
         setTasks(newTasks)
         toast.success("Tarefa removida com sucesso!")
     }
@@ -102,7 +102,7 @@ const Tasks = () => {
 
                 <AddTaskDialog isOpen={addTaskDialogIsOpen}
                     handleClose={handleClose}
-                    handleSubmit={handleAddTaskSubmit}
+                    onSubmitSuccess={handleAddTaskSubmit}
                 />
             </div>
         </div>

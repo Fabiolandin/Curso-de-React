@@ -20,7 +20,7 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
                 "Erro ao deletar a tarefa. Por favor, tente novamente!"
             )
         }
-        onDeleteSuccess()
+        onDeleteSuccess(task.id)
         setDeleteIsLoading(false)
     }
 
