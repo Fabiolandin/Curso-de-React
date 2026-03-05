@@ -34,20 +34,6 @@
       "time": "morning",
       "description": "Manhã",
       "status": "not_started"
-    },
-    {
-      "id": "4ea65a42-9a02-4852-99a1-38023f9f4b90",
-      "title": "Manhã",
-      "time": "morning",
-      "description": "Manhã",
-      "status": "not_started"
-    },
-    {
-      "id": "d803c248-07da-4435-bf97-12d7b0a2ab8b",
-      "title": "Tarde",
-      "time": "afternoon",
-      "description": "Tarde",
-      "status": "not_started"
     }
   ]
 }
